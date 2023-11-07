@@ -55,4 +55,6 @@ int ft_strcmp(char const *s1, char const *s2);
 ssize_t ft_read(int fd, void *buf, size_t count);
 ssize_t ft_write(int fd, char const *buf, size_t count);
 
+int ft_atoi_base(char *str, char *base);
+
 #endif

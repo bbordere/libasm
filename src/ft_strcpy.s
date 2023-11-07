@@ -6,7 +6,6 @@ section .text
 
 ft_strcpy:
 	xor 	rcx, rcx			;set rcx to 0
-	jmp		loop				;go to loop
 
 loop:
 	cmp		BYTE [rsi + rcx], 0	;

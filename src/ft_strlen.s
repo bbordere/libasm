@@ -3,14 +3,14 @@ global ft_strlen
 section .text
 
 ft_strlen:
-	xor 	rax, rax			; set counter to 0
-	jmp		loop_count  		; go to loop
+	xor 	rcx, rcx			; set counter to 0
 
 loop_count:
-	cmp		BYTE [rdi + rax], 0 ;
-	je		exit				; if (rdi[rax] == 0) go to exit 
-	inc		rax					; rax++
+	cmp		BYTE [rdi + rcx], 0 ;
+	je		exit				; if (rdi[rcx] == 0) go to exit 
+	inc		rcx					; rcx++
 	jmp		loop_count			; jump loop_count
 
 exit:
+	mov		rax, rcx			; set rax to rcx
 	ret							; return rax

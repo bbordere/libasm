@@ -5,7 +5,6 @@ section .text
 ft_strcmp:
 	xor		rax, rax				;set return value to 0
 	xor		rcx, rcx				;set return value to 0
-	jmp		loop					;go to loop
 
 loop:
 	cmp		BYTE [rdi + rcx], 0 	;
