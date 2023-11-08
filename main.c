@@ -387,7 +387,7 @@ void test_all() {
 // 	}
 // }
 
-int main(int ac, char **av){
+int main(int ac, char **av) {
 	(void)ac;
 	int i = ft_atoi_base(av[1], av[2]);
 	printf("%d\n", i);

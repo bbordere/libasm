@@ -4,48 +4,65 @@ extern ft_strlen
 
 section .text
 
+; r8 => sign, r9 => tmp var, r10 tmp char, r11 str pointer, r12 base length
+
 ft_atoi_base:
-	push	rdi						;store string ptr
-	mov		rdi, rsi				;
-	cmp		rdi, 0					; check if base ptr is not null
-	je		exit					; exit
-	call	ft_strlen				; get len of base
-	cmp		rax, 0					; check if len == 0
-	je		exit					; exit
-	cmp		rax, 1					; check if len == 1
-	je		exit					; exit
-	mov		r10, rax				; set r10 to rax
-	xor		rcx, rcx				; set rcx to 0
 	push	rbp						; save stack pointer
 	mov		rbp, rsp				; set rbp to rsp
 	sub		rsp, 127				; reserve 127 bytes
-	jmp		loop_base				;
+	mov		r11, rdi				; save string ptr
+	mov		rdi, rsi				;
+	cmp		rdi, 0					; check if base ptr is not null
+	je		exit_failure					; exit
+	call	ft_strlen				; get len of base
+	cmp		rax, 0					; check if len == 0
+	je		exit_failure					; exit
+	cmp		rax, 1					; check if len == 1
+	je		exit_failure					; exit
+	mov		r12, rax				; save base length
+	xor		rcx, rcx				; set rcx to 0
 
+init_mem:
+	cmp		rcx, 127
+	je		restore_rcx				; if rcx == 127 go to restore_rcx
+	mov		BYTE [rsp + rcx], 254	; rsp[rcx] = 254
+	inc		rcx 					; rcx++
+	jmp		init_mem				;
 
+restore_rcx:
+	xor		rcx, rcx				; set rcx to 0
+	xor		r9, r9					; set r9 to 0
 
 loop_base:
 	cmp		BYTE [rdi + rcx], 0		; check if char is null
 	je		check_str
-	mov		dl, BYTE [rdi + rcx]	; mov char in 1 byte register
-	cmp		dl, '+'					;
-	je		restore_stack			; exit if char is '+'
-	cmp		dl, '-'					; 
-	je		restore_stack			; exit if char is '-'
-	movzx	rax, dl 				; set rax to dl
-	cmp		BYTE [rsp + rax], 1		;
-	je		restore_stack			; exit if char is already in base
-	mov		BYTE [rsp + rax], 1		; *(rsp + rax) = 1
+	mov		r10b, BYTE [rdi + rcx]	; mov char in 1 byte register
+	cmp		r10b, '+'					;
+	je		exit_failure			; exit if char is '+'
+	cmp		r10b, '-'					; 
+	je		exit_failure			; exit if char is '-'
+	cmp		r10b, 9					; '\t'
+	je		exit_failure			;
+	cmp		r10b, 10				; '\n'
+	je		exit_failure			;
+	cmp		r10b, 13				; '\r'
+	je		exit_failure			;
+	cmp		r10b, 11				; '\v'
+	je		exit_failure			;
+	cmp		r10b, 12				; '\f'
+	je		exit_failure			;
+	cmp		r10b, ' '				; ' '
+	je		exit_failure			;
+	cmp		BYTE [rsp + r10], 254	;
+	jne		exit_failure			; exit if char is already in base
+	mov		BYTE [rsp + r10], r9b	; *(rsp + r10) = r9b
 	inc		rcx						; rcx++
+	inc		r9b						; r9++
 	jmp		loop_base				;
 
 check_str:
-	add		rsp, 127				; restore stack pos
-	pop		rbp						; restore rdp
-
 	mov		rcx, -1					; set rcx to -1
-	pop		rdi						; restore rdi to str pointer
-	jmp		skip_whitespaces		;
-
+	mov		rdi, r11				; restore str pointer
 
 skip_whitespaces:
 	inc		rcx						; rcx++
@@ -59,7 +76,7 @@ skip_whitespaces:
 	je		skip_whitespaces		;
 	cmp		BYTE [rdi + rcx], 12	; '\f'
 	je		skip_whitespaces		;
-	cmp		BYTE [rdi + rcx], ' '	;
+	cmp		BYTE [rdi + rcx], ' '	; ' '
 	je		skip_whitespaces		;
 	dec		rcx						;
 	mov		r8, 1					; set r8 to 1 (represents sign of expression)
@@ -74,26 +91,28 @@ get_sign:
 	je		get_sign				; go to get_sign if str[rcx] = '+'				
 	cmp		BYTE [rdi + rcx], '-'	; 
 	je		inverse_sign			; go to inverse_sign if str[rcx] = '+'
-	jmp		parse_int				;
-	dec		rcx						; rcx--
+	xor		rax, rax				; set rax to 0
 
 parse_int:
-	inc		rcx						; rcx++
-	cmp		BYTE [rdi + rcx], '0'	; 
-	jl		exit					; exit if char is lower than '0'
-	cmp		BYTE [rdi + rcx], '9'	; 
-	jg		exit					; exit if char is greater than '0'
-	mov		rax, r8					;
-	ret		
+	mov		r10b, BYTE [rdi + rcx]	; mov char in 1 byte register
+	cmp		r10b, 0					;
+	je		return_res				; if current char is null
+	cmp		BYTE [rsp + r10], 254	;
+	je		return_res				; if current char is not in base return res
+	mov		r9b, BYTE [rsp + r10]	; set r9 to char value in base
+	imul	rax, r12				; 
+	add		rax, r9					;
+	inc		rcx 					; rcx++
+	jmp		parse_int
 
-exit:
-	pop		rdi						; restore rdi
-	mov		rax, -42				; 
-	ret								;
-
-
-restore_stack:
+return_res:
 	add		rsp, 127				; restore stack pos
 	pop		rbp						; restore rdp
-	jmp		exit					;
+	imul	rax, r8					; res *= sign
+	ret	
 
+exit_failure:
+	add		rsp, 127				; restore stack pos
+	pop		rbp						; restore rdp
+	mov		rax, 0					; 
+	ret								;
