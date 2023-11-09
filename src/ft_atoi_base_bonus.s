@@ -9,22 +9,20 @@ section .text
 ft_atoi_base:
 	push	rbp						; save stack pointer
 	mov		rbp, rsp				; set rbp to rsp
-	sub		rsp, 127				; reserve 127 bytes
+	sub		rsp, 128				; reserve 128 bytes
 	mov		r11, rdi				; save string ptr
 	mov		rdi, rsi				;
 	cmp		rdi, 0					; check if base ptr is not null
 	je		exit_failure					; exit
 	call	ft_strlen				; get len of base
-	cmp		rax, 0					; check if len == 0
-	je		exit_failure					; exit
-	cmp		rax, 1					; check if len == 1
-	je		exit_failure					; exit
+	cmp		rax, 2					; 
+	jl		exit_failure			; exit if base lenth < 2
 	mov		r12, rax				; save base length
 	xor		rcx, rcx				; set rcx to 0
 
 init_mem:
-	cmp		rcx, 127
-	je		restore_rcx				; if rcx == 127 go to restore_rcx
+	cmp		rcx, 128
+	je		restore_rcx				; if rcx == 128 go to restore_rcx
 	mov		BYTE [rsp + rcx], 254	; rsp[rcx] = 254
 	inc		rcx 					; rcx++
 	jmp		init_mem				;
@@ -32,6 +30,7 @@ init_mem:
 restore_rcx:
 	xor		rcx, rcx				; set rcx to 0
 	xor		r9, r9					; set r9 to 0
+	xor		r10, r10				; set r10 to 0
 
 loop_base:
 	cmp		BYTE [rdi + rcx], 0		; check if char is null
@@ -105,14 +104,11 @@ parse_int:
 	inc		rcx 					; rcx++
 	jmp		parse_int
 
+exit_failure:
+	mov		r8, 0					;
+
 return_res:
-	add		rsp, 127				; restore stack pos
+	add		rsp, 128				; restore stack pos
 	pop		rbp						; restore rdp
 	imul	rax, r8					; res *= sign
-	ret	
-
-exit_failure:
-	add		rsp, 127				; restore stack pos
-	pop		rbp						; restore rdp
-	mov		rax, 0					; 
-	ret								;
+	ret

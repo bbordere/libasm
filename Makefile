@@ -68,8 +68,8 @@ re: fclean all
 
 test: all
 	@ printf "$(YELLOW)Compiling main test ...$(RESET)\n"
-	@ $(CC) $(CFLAGS) -I include/ main.c $(NAME) -o test
+	@ $(CC) $(CFLAGS) -I include/ -D BONUS=0 main.c $(NAME) -o test
 
 test_bonus: bonus
 	@ printf "$(YELLOW)Compiling bonus main test ...$(RESET)\n"
-	@ $(CC) $(CFLAGS) -I include/ main.c $(NAME) -o test
+	@ $(CC) $(CFLAGS) -I include/ -D BONUS=1 main.c $(NAME) -o test

@@ -349,46 +349,145 @@ void test_strdup() {
 	printf(MAGENTA "%s\n%s", S2, RESET);
 }
 
-void test_all() {
-	test_strlen();
-	test_strcpy();
-	test_strcmp();
-	test_write();
-	test_read();
-	test_strdup();
+#define BONUS 1
+
+# if BONUS
+
+void test_atoi_base(void){
+	printf_center(YELLOW BOLD "[ATOI_BASE]" RESET);
+	printf("String: \"42\", Base: \"%s\"\n", DEC_BASE);
+	int number = ft_atoi_base("42", DEC_BASE);
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 42) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+	printf("String: \"-42\", Base: \"%s\"\n", DEC_BASE);
+	number = ft_atoi_base("-42", DEC_BASE);
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == -42) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+
+	printf("String: \"42\", Base: \"%s\"\n", HEX_BASE);
+	number = ft_atoi_base("42", HEX_BASE);
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 66) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+
+	printf("String: \"42\", Base: \"%s\"\n", OCT_BASE);
+	number = ft_atoi_base("42", OCT_BASE);
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 34) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+
+	printf("String: \"DEAD\", Base: \"%s\"\n", HEX_BASE);
+	number = ft_atoi_base("DEAD", HEX_BASE);
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 57005) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+
+	printf("String: \"        -++--+-+--+34\", Base: \"%s\"\n", DEC_BASE);
+	number = ft_atoi_base("        -++--+-+--+34", DEC_BASE);
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 34) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+
+	printf("String: \"ey42\", Base: \"%s\"\n", WTF_BASE);
+	number = ft_atoi_base("ey42", WTF_BASE);
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 19) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+
+	printf("String: \"1001\", Base: \"%s\"\n", "011");
+	number = ft_atoi_base("ey42", "011");
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 0) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+
+	printf("String: \"1001\", Base: \"%s\"\n", "+01");
+	number = ft_atoi_base("1001", "+01");
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 0) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+
+	printf("String: \"1001\", Base: \"%s\"\n", " 01");
+	number = ft_atoi_base("1001", " 01");
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 0) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+
+	printf("String: \"\", Base: \"%s\"\n", " 01");
+	number = ft_atoi_base("", " 01");
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 0) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
+
+	printf("String: \"01\", Base: \"%s\"\n", "");
+	number = ft_atoi_base("01", "");
+	printf("%s %d %s\n", CYAN "ft_atoi_base =>" YELLOW, number, RESET);
+	printf("%s\n\n", (number == 0) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET);
 }
 
-// int main(int ac, char **av) {
-// 	int options = 0;
-// 	printf("%s%s\n", MAGENTA, S3);
-// 	printf_center(" ___  ___  __  ___   _    _  ___  _   __  _   _ ");
-// 	printf_center("|_ _|| __|/ _||_ _| | |  | || o )/ \\ / _|| \\_/ |");
-// 	printf_center(" | | | _| \\_ \\ | |  | |_ | || o \\ o |\\_ \\| \\_/ |");
-// 	printf_center(" |_| |___||__/ |_|  |___||_||___/_n_||__/|_| |_|");
-// 	printf("%s\n%s", S2, RESET);
-// 	if (ac == 1) {
-// 		test_all();
-// 		return (0);
-// 	}
-// 	for (int i = 1; i < ac; ++i) {
-// 		SET_BIT_TO(options, STRLEN, !(strcmp(av[i], "strlen")));
-// 		SET_BIT_TO(options, STRCPY, !(strcmp(av[i], "strcpy")));
-// 		SET_BIT_TO(options, STRCMP, !(strcmp(av[i], "strcmp")));
-// 		SET_BIT_TO(options, WRITE, !(strcmp(av[i], "write")));
-// 		SET_BIT_TO(options, READ, !(strcmp(av[i], "read")));
-// 		SET_BIT_TO(options, STRDUP, !(strcmp(av[i], "strdup")));
-// 	}
-// 	void (*functions[])(void) = {test_strlen, test_strcpy, test_strcmp,
-// 								 test_write,  test_read,   test_strdup};
-// 	for (int i = 0; i < 6; ++i) {
-// 		if (options & (1 << i)) {
-// 			functions[i]();
-// 		}
-// 	}
-// }
+# endif
+
+void test_all() {
+	# if BONUS
+		test_atoi_base();
+	# else
+		test_strlen();
+		test_strcpy();
+		test_strcmp();
+		test_write();
+		test_read();
+		test_strdup();
+	# endif
+}
 
 int main(int ac, char **av) {
-	(void)ac;
-	int i = ft_atoi_base(av[1], av[2]);
-	printf("%d\n", i);
+	int options = 0;
+	printf("%s%s\n", MAGENTA, S3);
+	printf_center(" ___  ___  __  ___   _    _  ___  _   __  _   _ ");
+	printf_center("|_ _|| __|/ _||_ _| | |  | || o )/ \\ / _|| \\_/ |");
+	printf_center(" | | | _| \\_ \\ | |  | |_ | || o \\ o |\\_ \\| \\_/ |");
+	printf_center(" |_| |___||__/ |_|  |___||_||___/_n_||__/|_| |_|");
+	printf("%s\n%s", S2, RESET);
+	if (ac == 1) {
+		test_all();
+		return (0);
+	}
+	for (int i = 1; i < ac; ++i) {
+		# if BONUS
+			SET_BIT_TO(options, ATOI_BASE, !(strcmp(av[i], "atoi_base")));
+		# else
+			SET_BIT_TO(options, STRLEN, !(strcmp(av[i], "strlen")));
+			SET_BIT_TO(options, STRCPY, !(strcmp(av[i], "strcpy")));
+			SET_BIT_TO(options, STRCMP, !(strcmp(av[i], "strcmp")));
+			SET_BIT_TO(options, WRITE, !(strcmp(av[i], "write")));
+			SET_BIT_TO(options, READ, !(strcmp(av[i], "read")));
+			SET_BIT_TO(options, STRDUP, !(strcmp(av[i], "strdup")));
+		# endif
+	}
+	# if BONUS
+		void (*functions[])(void) = {test_atoi_base};
+	# else
+		void (*functions[])(void) = {test_strlen, test_strcpy, test_strcmp,
+									test_write,  test_read,   test_strdup};
+	# endif
+
+	for (int i = 0; i < 6; ++i) {
+		if (options & (1 << i)) {
+			functions[i]();
+		}
+	}
 }

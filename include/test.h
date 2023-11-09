@@ -16,7 +16,8 @@ enum BIT_POS
 	STRCMP,
 	WRITE,
 	READ,
-	STRDUP
+	STRDUP,
+	ATOI_BASE,
 };
 
 #define MAGENTA "\033[95m"
@@ -44,6 +45,12 @@ enum BIT_POS
 #define S3                                                                     \
 	"________________________________________________________________________" \
 	"_______"
+
+#define DEC_BASE "0123456789"
+#define DEC_BASE "0123456789"
+#define HEX_BASE "0123456789ABCDEF"
+#define OCT_BASE "01234567"
+#define WTF_BASE "poney"
 
 char *ft_strdup(char const *s);
 char *ft_strcpy(char *dest, char const *src);
