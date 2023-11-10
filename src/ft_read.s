@@ -1,5 +1,7 @@
 global ft_read
 
+section .data
+
 extern __errno_location
 
 section .text
@@ -14,7 +16,7 @@ ft_read:
 error:
 	neg		rax					;get absolute value of syscall return
 	mov		rdi, rax			;tmp store rax value into rdi
-	call	__errno_location	;get errno pointer location into rax
+	call    __errno_location wrt ..plt    ; call	;get errno pointer location into rax
 	mov		[rax], rdi			;set rdi value into address of rdi
 	mov		rax, -1				;set return value of write call
 	ret	

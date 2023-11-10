@@ -9,17 +9,6 @@
 #include <string.h>
 #include <unistd.h>
 
-enum BIT_POS
-{
-	STRLEN,
-	STRCPY,
-	STRCMP,
-	WRITE,
-	READ,
-	STRDUP,
-	ATOI_BASE,
-};
-
 #define MAGENTA "\033[95m"
 #define YELLOW "\033[33m"
 #define RESET "\033[0m"
@@ -28,13 +17,13 @@ enum BIT_POS
 #define BLUE "\033[34m"
 #define RED "\033[31m"
 #define GREEN "\033[32m"
-#define LOREM_IPSUM                                                            \
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae "   \
-	"elit tristique, tincidunt elit nec, faucibus est. Aenean ut velit eu "    \
-	"erat dignissim rhoncus et et ante. Donec ac elit id tellus dictum "       \
+#define LOREM_IPSUM                                                          \
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae " \
+	"elit tristique, tincidunt elit nec, faucibus est. Aenean ut velit eu "  \
+	"erat dignissim rhoncus et et ante. Donec ac elit id tellus dictum "     \
 	"tempor id at lorem. Curabitur fermentum ipsum nunc"
 
-#define SET_BIT_TO(var, bitPos, bitValue)                                      \
+#define SET_BIT_TO(var, bitPos, bitValue) \
 	((var) |= ((var) & ~(1u << (bitPos))) | ((bitValue) << (bitPos)))
 
 #define SAME_SIGN(x, y) (((x ^ y) >> (sizeof(int) * 8 - 1)) == 0)
@@ -52,6 +41,50 @@ enum BIT_POS
 #define OCT_BASE "01234567"
 #define WTF_BASE "poney"
 
+typedef struct s_list
+{
+	void *data;
+	struct s_list *next;
+} t_list;
+
+enum BIT_POS
+{
+	STRLEN,
+	STRCPY,
+	STRCMP,
+	WRITE,
+	READ,
+	STRDUP,
+};
+
+enum BONUS_BIT_POS
+{
+	ATOI_BASE,
+	LIST_PUSH_FRONT,
+	LIST_SIZE
+};
+
+enum TYPE
+{
+	INT,
+	CHAR,
+	STR
+};
+
+void test_atoi_base(void);
+void test_strlen(void);
+void test_strcpy(void);
+void test_strcmp(void);
+void test_write(void);
+void test_read(void);
+void test_strdup(void);
+void test_list_push_front(void);
+void test_list_size(void);
+
+void printf_center(char *str);
+void print_list(t_list *lst, enum TYPE type);
+void free_list(t_list *lst);
+
 char *ft_strdup(char const *s);
 char *ft_strcpy(char *dest, char const *src);
 
@@ -63,5 +96,8 @@ ssize_t ft_read(int fd, void *buf, size_t count);
 ssize_t ft_write(int fd, char const *buf, size_t count);
 
 int ft_atoi_base(char *str, char *base);
+
+void ft_list_push_front(t_list **begin_list, void *data);
+int ft_list_size(t_list *begin_list);
 
 #endif

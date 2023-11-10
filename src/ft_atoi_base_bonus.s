@@ -23,7 +23,7 @@ ft_atoi_base:
 init_mem:
 	cmp		rcx, 128
 	je		restore_rcx				; if rcx == 128 go to restore_rcx
-	mov		BYTE [rsp + rcx], 254	; rsp[rcx] = 254
+	mov		BYTE [rsp + rcx], -1	; rsp[rcx] = -1
 	inc		rcx 					; rcx++
 	jmp		init_mem				;
 
@@ -32,32 +32,29 @@ restore_rcx:
 	xor		r9, r9					; set r9 to 0
 	xor		r10, r10				; set r10 to 0
 
-loop_base:
+check_base:
 	cmp		BYTE [rdi + rcx], 0		; check if char is null
 	je		check_str
 	mov		r10b, BYTE [rdi + rcx]	; mov char in 1 byte register
+	cmp		r10b, 9					; check whitespaces	 '\t' '\r' '\n' '\v' '\f'
+	jl		fill_mem				;
+	cmp		r10b, 13				;
+	jg		fill_mem				; 
+	jmp		exit_failure			; if char <= 9 && >= 13
+
+fill_mem:
+	cmp		r10b, ' '				; ' '
+	je		exit_failure			;
 	cmp		r10b, '+'					;
 	je		exit_failure			; exit if char is '+'
 	cmp		r10b, '-'					; 
 	je		exit_failure			; exit if char is '-'
-	cmp		r10b, 9					; '\t'
-	je		exit_failure			;
-	cmp		r10b, 10				; '\n'
-	je		exit_failure			;
-	cmp		r10b, 13				; '\r'
-	je		exit_failure			;
-	cmp		r10b, 11				; '\v'
-	je		exit_failure			;
-	cmp		r10b, 12				; '\f'
-	je		exit_failure			;
-	cmp		r10b, ' '				; ' '
-	je		exit_failure			;
-	cmp		BYTE [rsp + r10], 254	;
+	cmp		BYTE [rsp + r10], -1	;
 	jne		exit_failure			; exit if char is already in base
 	mov		BYTE [rsp + r10], r9b	; *(rsp + r10) = r9b
 	inc		rcx						; rcx++
 	inc		r9b						; r9++
-	jmp		loop_base				;
+	jmp		check_base				;
 
 check_str:
 	mov		rcx, -1					; set rcx to -1
@@ -65,18 +62,15 @@ check_str:
 
 skip_whitespaces:
 	inc		rcx						; rcx++
-	cmp		BYTE [rdi + rcx], 9		; '\t'
+	cmp		BYTE [rdi + rcx], ' '	;
 	je		skip_whitespaces		;
-	cmp		BYTE [rdi + rcx], 10	; '\n'
-	je		skip_whitespaces		;
-	cmp		BYTE [rdi + rcx], 13	; '\r'
-	je		skip_whitespaces		;
-	cmp		BYTE [rdi + rcx], 11	; '\v'
-	je		skip_whitespaces		;
-	cmp		BYTE [rdi + rcx], 12	; '\f'
-	je		skip_whitespaces		;
-	cmp		BYTE [rdi + rcx], ' '	; ' '
-	je		skip_whitespaces		;
+	cmp		BYTE [rdi + rcx], 9		;
+	jl		prepare_parsing			;
+	cmp		BYTE [rdi + rcx], 13	; skip whitespaces
+	jg		prepare_parsing			;
+	jmp		skip_whitespaces		;
+
+prepare_parsing:
 	dec		rcx						;
 	mov		r8, 1					; set r8 to 1 (represents sign of expression)
 	jmp		get_sign				;
@@ -96,7 +90,7 @@ parse_int:
 	mov		r10b, BYTE [rdi + rcx]	; mov char in 1 byte register
 	cmp		r10b, 0					;
 	je		return_res				; if current char is null
-	cmp		BYTE [rsp + r10], 254	;
+	cmp		BYTE [rsp + r10], -1	;
 	je		return_res				; if current char is not in base return res
 	mov		r9b, BYTE [rsp + r10]	; set r9 to char value in base
 	imul	rax, r12				; 
