@@ -32,5 +32,5 @@ void test_list_push_front(void)
 	printf("%s %p %s\n", CYAN "list:" YELLOW, (void *)list, RESET);
 	print_list(list, STR);
 	printf("\n");
-	free_list(list);
+	clear_list(&list);
 }

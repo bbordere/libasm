@@ -7,6 +7,7 @@ section .text
 ; r8 => sign, r9 => tmp var, r10 tmp char, r11 str pointer, r12 base length
 
 ft_atoi_base:
+	push	r12						; save r12
 	push	rbp						; save stack pointer
 	mov		rbp, rsp				; set rbp to rsp
 	sub		rsp, 128				; reserve 128 bytes
@@ -105,4 +106,5 @@ return_res:
 	add		rsp, 128				; restore stack pos
 	pop		rbp						; restore rdp
 	imul	rax, r8					; res *= sign
+	pop		r12						; restore r12
 	ret

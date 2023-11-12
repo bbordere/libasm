@@ -61,7 +61,9 @@ enum BONUS_BIT_POS
 {
 	ATOI_BASE,
 	LIST_PUSH_FRONT,
-	LIST_SIZE
+	LIST_SIZE,
+	LIST_SORT,
+	REMOVE_IF
 };
 
 enum TYPE
@@ -80,10 +82,14 @@ void test_read(void);
 void test_strdup(void);
 void test_list_push_front(void);
 void test_list_size(void);
+void test_list_sort(void);
 
 void printf_center(char *str);
 void print_list(t_list *lst, enum TYPE type);
-void free_list(t_list *lst);
+void clear_list(t_list **lst);
+int upper_cmp(void *d1, void *d2);
+int lower_cmp(void *d1, void *d2);
+int is_sorted(t_list *lst, int (*cmp)());
 
 char *ft_strdup(char const *s);
 char *ft_strcpy(char *dest, char const *src);
@@ -99,5 +105,6 @@ int ft_atoi_base(char *str, char *base);
 
 void ft_list_push_front(t_list **begin_list, void *data);
 int ft_list_size(t_list *begin_list);
+void ft_list_sort(t_list **begin_list, int (*cmp)());
 
 #endif

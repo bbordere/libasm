@@ -10,6 +10,7 @@ void test_all()
 	test_atoi_base();
 	test_list_push_front();
 	test_list_size();
+	test_list_sort();
 #else
 	test_strlen();
 	test_strcpy();
@@ -40,6 +41,7 @@ int main(int ac, char **av)
 		SET_BIT_TO(options, ATOI_BASE, !(strcmp(av[i], "atoi_base")));
 		SET_BIT_TO(options, LIST_PUSH_FRONT, !(strcmp(av[i], "list_push_front")));
 		SET_BIT_TO(options, LIST_SIZE, !(strcmp(av[i], "list_size")));
+		SET_BIT_TO(options, LIST_SORT, !(strcmp(av[i], "list_sort")));
 #else
 		SET_BIT_TO(options, STRLEN, !(strcmp(av[i], "strlen")));
 		SET_BIT_TO(options, STRCPY, !(strcmp(av[i], "strcpy")));
@@ -51,7 +53,7 @@ int main(int ac, char **av)
 	}
 #if BONUS
 	void (*functions[])(void) = {test_atoi_base, test_list_push_front,
-								 test_list_size};
+								 test_list_size, test_list_sort};
 #else
 	void (*functions[])(void) = {test_strlen, test_strcpy, test_strcmp,
 								 test_write, test_read, test_strdup};

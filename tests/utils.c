@@ -22,13 +22,39 @@ void print_list(t_list *lst, enum TYPE type)
 	printf("NULL\n");
 }
 
-void free_list(t_list *lst)
+void clear_list(t_list **lst)
+{
+	t_list *tmp;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free(*lst);
+		*lst = tmp;
+	}
+	lst = NULL;
+}
+
+int is_sorted(t_list *lst, int (*cmp)())
 {
 	t_list *tmp;
 	while (lst)
 	{
 		tmp = lst->next;
-		free(lst);
-		lst = tmp;
+		if (!lst->next)
+			return (1);
+		if (cmp(lst->data, tmp->data) > 0)
+			return (0);
+		lst = lst->next;
 	}
+	return (1);
+}
+
+int lower_cmp(void *d1, void *d2)
+{
+	return ((long long)d1 > (long long)d2);
+}
+
+int upper_cmp(void *d1, void *d2)
+{
+	return ((long long)d1 < (long long)d2);
 }

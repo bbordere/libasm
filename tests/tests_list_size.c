@@ -15,5 +15,5 @@ void test_list_size(void)
 		printf("%s %d %s\n\n", CYAN "ft_list_size =>" YELLOW, ft_list_size(list), RESET);
 	}
 
-	free_list(list);
+	clear_list(&list);
 }
