@@ -9,7 +9,8 @@ FILES		=	$(SRCS_DIR)ft_write.s $(SRCS_DIR)ft_strlen.s $(SRCS_DIR)ft_strcpy.s\
 BONUS_FILES =	$(FILES) $(SRCS_DIR)ft_atoi_base_bonus.s\
 				$(SRCS_DIR)ft_list_push_front_bonus.s\
 				$(SRCS_DIR)ft_list_size_bonus.s\
-				$(SRCS_DIR)ft_list_sort_bonus.s
+				$(SRCS_DIR)ft_list_sort_bonus.s\
+				$(SRCS_DIR)ft_list_remove_if_bonus.s
 
 TESTS_FILES = 	$(TESTS_DIR)utils.c $(TESTS_DIR)tests_strlen.c\
 				$(TESTS_DIR)tests_strcpy.c $(TESTS_DIR)tests_strcmp.c\
@@ -18,7 +19,7 @@ TESTS_FILES = 	$(TESTS_DIR)utils.c $(TESTS_DIR)tests_strlen.c\
 
 BONUS_TESTS_FILES = $(TESTS_DIR)utils.c $(TESTS_DIR)tests_atoi_base.c\
 					$(TESTS_DIR)tests_list_push_front.c $(TESTS_DIR)tests_list_size.c\
-					$(TESTS_DIR)tests_list_sort.c\
+					$(TESTS_DIR)tests_list_sort.c $(TESTS_DIR)tests_list_remove_if.c\
 
 SRCS_DIR	=	src/
 TESTS_DIR	= 	tests/

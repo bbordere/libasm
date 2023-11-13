@@ -83,6 +83,7 @@ void test_strdup(void);
 void test_list_push_front(void);
 void test_list_size(void);
 void test_list_sort(void);
+void test_list_remove_if(void);
 
 void printf_center(char *str);
 void print_list(t_list *lst, enum TYPE type);
@@ -103,8 +104,9 @@ ssize_t ft_write(int fd, char const *buf, size_t count);
 
 int ft_atoi_base(char *str, char *base);
 
-void ft_list_push_front(t_list **begin_list, void *data);
 int ft_list_size(t_list *begin_list);
 void ft_list_sort(t_list **begin_list, int (*cmp)());
+void ft_list_push_front(t_list **begin_list, void *data);
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
 
 #endif

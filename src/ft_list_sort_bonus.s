@@ -23,7 +23,7 @@ inc_current:
 	mov		r12, [r12 + 8]	; r12 = current->next
 	jmp		reset_cursors	;
 
-inc_next
+inc_next:
 	mov		r13, [r13 + 8]	; r13 = next->next;
 
 compare:
