@@ -4,9 +4,9 @@ section .text
 
 extern free
 
-;rdi = **begin, rsi = *data_ref, rdx = cmp_fct, rcx = free_ftc
-;r12 = current
-;r13 = prev
+; rdi = **begin, rsi = *data_ref, rdx = cmp_fct, rcx = free_ftc
+; r12 = current
+; r13 = prev
 
 ft_list_remove_if:
 	push	r12				; save r12
@@ -26,8 +26,6 @@ ft_list_remove_if:
 
 inc_loop:
 	mov		r13, r12		; prev = current
-	cmp		r12, 0			;
-	je		exit			;
 	mov		r12, [r12 + 8]	; current = current->next
 
 loop_list:
@@ -52,27 +50,28 @@ link_items:
 	jmp		free_item		;
 
 change_head:
-	mov		r8, [rdi]		; r8 = current
-	mov		r8, [r8 + 8]	; r8 = current->next
-	mov		[rdi], r8		; *begin = current->next
+	mov		r8, [rdi]		; r8 = begin
+	mov		r8, [r8 + 8]	; r8 = begin->next
+	mov		[rdi], r8		; *begin = begin->next
 
 free_item:
 	push	rdi				; save rdi
+	push	rsi				; save rsi
 	mov		rax, r15		;
 	mov		rdi, [r12]		;
 	call	rax				; free(current->data)
 	mov		rdi, r12		;
-	call	free			; free(current)
+	call	free wrt ..plt	; free(current)
+	pop		rsi				; restore rsi
 	pop		rdi				;
 	cmp		r13, 0			;
 	jne		restore_ptr
 	mov		r12, [rdi]		;
-	jmp		inc_loop
+	jmp		loop_list
 
 restore_ptr:
-	mov 	r12, [r13 + 8]	;
+	mov 	r12, r13		;
 	jmp		inc_loop		;
-
 
 exit:
 	pop		r15				; restore r15

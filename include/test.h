@@ -90,6 +90,7 @@ void print_list(t_list *lst, enum TYPE type);
 void clear_list(t_list **lst);
 int upper_cmp(void *d1, void *d2);
 int lower_cmp(void *d1, void *d2);
+int equal(void *d1, void *d2);
 int is_sorted(t_list *lst, int (*cmp)());
 
 char *ft_strdup(char const *s);

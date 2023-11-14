@@ -54,6 +54,11 @@ int lower_cmp(void *d1, void *d2)
 	return ((long long)d1 > (long long)d2);
 }
 
+int equal(void *d1, void *d2)
+{
+	return (strcmp((char *)d1, (char *)d2));
+}
+
 int upper_cmp(void *d1, void *d2)
 {
 	return ((long long)d1 < (long long)d2);
