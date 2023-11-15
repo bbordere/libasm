@@ -1,7 +1,6 @@
 #include "test.h"
 
-void test_list_push_front(void)
-{
+void test_list_push_front(void) {
 	printf_center(YELLOW BOLD "[LIST_PUSH_FRONT]" RESET);
 	t_list *list = NULL;
 	printf("%s %p %s\n", CYAN "list:" YELLOW, (void *)list, RESET);
@@ -32,5 +31,5 @@ void test_list_push_front(void)
 	printf("%s %p %s\n", CYAN "list:" YELLOW, (void *)list, RESET);
 	print_list(list, STR);
 	printf("\n");
-	clear_list(&list);
+	clear_list(&list, 0);
 }

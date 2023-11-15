@@ -1,7 +1,6 @@
 #include "test.h"
 
-void test_strcpy()
-{
+void test_strcpy() {
 	printf_center(YELLOW BOLD "[STRCPY]" RESET);
 
 	char buffer_ft[256];
@@ -14,7 +13,8 @@ void test_strcpy()
 	printf("%s %s %s\n", CYAN "buffer_ft:" YELLOW, buffer_ft, RESET);
 	printf("%s %s %s\n", CYAN "buffer_std:" YELLOW, buffer_std, RESET);
 	printf("%s\n\n",
-		   (!(strcmp(buffer_ft, buffer_std)) ? GREEN "Test Passed ✅" RESET : RED "Test Failed ❌" RESET));
+		   (!(strcmp(buffer_ft, buffer_std)) ? GREEN "Test Passed ✅" RESET :
+											   RED "Test Failed ❌" RESET));
 
 	bzero(buffer_ft, sizeof(buffer_ft));
 	bzero(buffer_std, sizeof(buffer_std));
@@ -26,7 +26,8 @@ void test_strcpy()
 	printf("%s %s %s\n", CYAN "buffer_ft:" YELLOW, buffer_ft, RESET);
 	printf("%s %s %s\n", CYAN "buffer_std:" YELLOW, buffer_std, RESET);
 	printf("%s\n\n",
-		   (!(strcmp(buffer_ft, buffer_std)) ? GREEN "Test Passed ✅" RESET : RED "Test Failed ❌" RESET));
+		   (!(strcmp(buffer_ft, buffer_std)) ? GREEN "Test Passed ✅" RESET :
+											   RED "Test Failed ❌" RESET));
 
 	bzero(buffer_ft, sizeof(buffer_ft));
 	bzero(buffer_std, sizeof(buffer_std));
@@ -41,6 +42,7 @@ void test_strcpy()
 	printf("%s %s %s\n", CYAN "buffer_ft:" YELLOW, buffer_ft, RESET);
 	printf("%s %s %s\n", CYAN "buffer_std:" YELLOW, buffer_std, RESET);
 	printf("%s\n\n",
-		   (!(strcmp(buffer_ft, buffer_std)) ? GREEN "Test Passed ✅" RESET : RED "Test Failed ❌" RESET));
+		   (!(strcmp(buffer_ft, buffer_std)) ? GREEN "Test Passed ✅" RESET :
+											   RED "Test Failed ❌" RESET));
 	printf(MAGENTA "%s\n%s", S2, RESET);
 }

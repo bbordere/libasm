@@ -1,7 +1,6 @@
 #include "test.h"
 
-void test_strdup()
-{
+void test_strdup() {
 	printf_center(YELLOW BOLD "[STRDUP]" RESET);
 	printf("Dup string: \"Ceci est un test !\"\n");
 	char *dup_ft;
@@ -18,7 +17,9 @@ void test_strdup()
 	printf("%s %p (%s)%s, errno: %s%d%s\n", CYAN "strdup =>" YELLOW,
 		   (void *)dup_std, dup_std, CYAN, YELLOW, errno_std, RESET);
 
-	printf("%s\n\n", ((errno_ft == errno_std) && (!strcmp(dup_ft, dup_std)) ? GREEN "Test Passed ✅" RESET : RED "Test Failed ❌" RESET));
+	printf("%s\n\n", ((errno_ft == errno_std) && (!strcmp(dup_ft, dup_std)) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET));
 
 	free(dup_ft);
 	free(dup_std);
@@ -34,7 +35,9 @@ void test_strdup()
 	printf("%s %p (%s)%s, errno: %s%d%s\n", CYAN "strdup =>" YELLOW,
 		   (void *)dup_std, dup_std, CYAN, YELLOW, errno_std, RESET);
 
-	printf("%s\n\n", ((errno_ft == errno_std) && (!strcmp(dup_ft, dup_std)) ? GREEN "Test Passed ✅" RESET : RED "Test Failed ❌" RESET));
+	printf("%s\n\n", ((errno_ft == errno_std) && (!strcmp(dup_ft, dup_std)) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET));
 
 	free(dup_ft);
 	free(dup_std);
@@ -50,7 +53,9 @@ void test_strdup()
 	printf("%s %p (%s)%s, errno: %s%d%s\n", CYAN "strdup =>" YELLOW,
 		   (void *)dup_std, dup_std, CYAN, YELLOW, errno_std, RESET);
 
-	printf("%s\n\n", ((errno_ft == errno_std) && (!strcmp(dup_ft, dup_std)) ? GREEN "Test Passed ✅" RESET : RED "Test Failed ❌" RESET));
+	printf("%s\n\n", ((errno_ft == errno_std) && (!strcmp(dup_ft, dup_std)) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET));
 
 	free(dup_ft);
 	free(dup_std);

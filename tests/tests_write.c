@@ -1,7 +1,6 @@
 #include "test.h"
 
-void test_write()
-{
+void test_write() {
 	printf_center(YELLOW BOLD "[WRITE]" RESET);
 
 	ssize_t val_ft;
@@ -25,7 +24,9 @@ void test_write()
 		   YELLOW, errno_ft, RESET);
 	printf("%s %ld%s, errno: %s%d%s\n", CYAN "write =>" YELLOW, val_std, CYAN,
 		   YELLOW, errno_std, RESET);
-	printf("%s\n\n", ((val_ft == val_std) && (errno_ft == errno_std) ? GREEN "Test Passed ✅" RESET : RED "Test Failed ❌" RESET));
+	printf("%s\n\n", ((val_ft == val_std) && (errno_ft == errno_std) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET));
 
 	printf("String: \"Hello\\n World !\", fd: 1, len 6\n");
 
@@ -42,7 +43,9 @@ void test_write()
 		   YELLOW, errno_ft, RESET);
 	printf("%s %ld%s, errno: %s%d%s\n", CYAN "write =>" YELLOW, val_std, CYAN,
 		   YELLOW, errno_std, RESET);
-	printf("%s\n\n", ((val_ft == val_std) && (errno_ft == errno_std) ? GREEN "Test Passed ✅" RESET : RED "Test Failed ❌" RESET));
+	printf("%s\n\n", ((val_ft == val_std) && (errno_ft == errno_std) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET));
 
 	printf("String: \"Houston, we have a problem !\", fd: 4242, len %ld\n",
 		   strlen("Houston, we have a problem !\n"));
@@ -58,7 +61,9 @@ void test_write()
 		   YELLOW, errno_ft, RESET);
 	printf("%s %ld%s, errno: %s%d%s\n", CYAN "write =>" YELLOW, val_std, CYAN,
 		   YELLOW, errno_std, RESET);
-	printf("%s\n\n", ((val_ft == val_std) && (errno_ft == errno_std) ? GREEN "Test Passed ✅" RESET : RED "Test Failed ❌" RESET));
+	printf("%s\n\n", ((val_ft == val_std) && (errno_ft == errno_std) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET));
 	printf(MAGENTA "%s\n%s", S2, RESET);
 	errno = 0;
 }

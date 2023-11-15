@@ -17,13 +17,13 @@
 #define BLUE "\033[34m"
 #define RED "\033[31m"
 #define GREEN "\033[32m"
-#define LOREM_IPSUM                                                          \
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae " \
-	"elit tristique, tincidunt elit nec, faucibus est. Aenean ut velit eu "  \
-	"erat dignissim rhoncus et et ante. Donec ac elit id tellus dictum "     \
+#define LOREM_IPSUM                                                            \
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae "   \
+	"elit tristique, tincidunt elit nec, faucibus est. Aenean ut velit eu "    \
+	"erat dignissim rhoncus et et ante. Donec ac elit id tellus dictum "       \
 	"tempor id at lorem. Curabitur fermentum ipsum nunc"
 
-#define SET_BIT_TO(var, bitPos, bitValue) \
+#define SET_BIT_TO(var, bitPos, bitValue)                                      \
 	((var) |= ((var) & ~(1u << (bitPos))) | ((bitValue) << (bitPos)))
 
 #define SAME_SIGN(x, y) (((x ^ y) >> (sizeof(int) * 8 - 1)) == 0)
@@ -43,8 +43,8 @@
 
 typedef struct s_list
 {
-	void *data;
-	struct s_list *next;
+		void *data;
+		struct s_list *next;
 } t_list;
 
 enum BIT_POS
@@ -68,9 +68,10 @@ enum BONUS_BIT_POS
 
 enum TYPE
 {
-	INT,
+	ADDR,
 	CHAR,
-	STR
+	STR,
+	INT,
 };
 
 void test_atoi_base(void);
@@ -87,10 +88,10 @@ void test_list_remove_if(void);
 
 void printf_center(char *str);
 void print_list(t_list *lst, enum TYPE type);
-void clear_list(t_list **lst);
+void clear_list(t_list **lst, int free_data);
 int upper_cmp(void *d1, void *d2);
 int lower_cmp(void *d1, void *d2);
-int equal(void *d1, void *d2);
+int parity_cmp(void *d1, void *d2);
 int is_sorted(t_list *lst, int (*cmp)());
 
 char *ft_strdup(char const *s);
@@ -108,6 +109,7 @@ int ft_atoi_base(char *str, char *base);
 int ft_list_size(t_list *begin_list);
 void ft_list_sort(t_list **begin_list, int (*cmp)());
 void ft_list_push_front(t_list **begin_list, void *data);
-void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(),
+					   void (*free_fct)(void *));
 
 #endif

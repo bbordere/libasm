@@ -1,7 +1,6 @@
 #include "test.h"
 
-void test_read()
-{
+void test_read() {
 	printf_center(YELLOW BOLD "[READ]" RESET);
 
 	int fd_ft;
@@ -31,9 +30,9 @@ void test_read()
 		   YELLOW, errno_std, RESET);
 
 	printf("%s\n\n", ((val_ft == val_std) && (errno_ft == errno_std) &&
-							  (!strcmp(buffer_ft, buffer_std))
-						  ? GREEN "Test Passed ✅" RESET
-						  : RED "Test Failed ❌" RESET));
+							  (!strcmp(buffer_ft, buffer_std)) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET));
 
 	close(fd_ft);
 	close(fd_std);
@@ -57,9 +56,9 @@ void test_read()
 		   YELLOW, errno_std, RESET);
 
 	printf("%s\n\n", ((val_ft == val_std) && (errno_ft == errno_std) &&
-							  (!strcmp(buffer_ft, buffer_std))
-						  ? GREEN "Test Passed ✅" RESET
-						  : RED "Test Failed ❌" RESET));
+							  (!strcmp(buffer_ft, buffer_std)) ?
+						  GREEN "Test Passed ✅" RESET :
+						  RED "Test Failed ❌" RESET));
 	errno = 0;
 
 	printf("Reading \'testFile.ber\' character by character\n");
@@ -68,19 +67,18 @@ void test_read()
 	int pos = 0;
 	fd_ft = open("textFile.ber", O_RDONLY);
 	fd_std = open("textFile.ber", O_RDONLY);
-	while (read(fd_std, &c, 1) > 0)
-	{
+	while (read(fd_std, &c, 1) > 0) {
 		buffer_std[pos++] = c;
 	}
 	pos = 0;
-	while (ft_read(fd_ft, &c, 1) > 0)
-	{
+	while (ft_read(fd_ft, &c, 1) > 0) {
 		buffer_ft[pos++] = c;
 	}
 	printf("%s %s %s\n", CYAN "buffer_ft:" YELLOW, buffer_ft, RESET);
 	printf("%s %s %s\n", CYAN "buffer_std:" YELLOW, buffer_std, RESET);
 
 	printf("%s\n\n",
-		   ((!strcmp(buffer_ft, buffer_std)) ? GREEN "Test Passed ✅" RESET : RED "Test Failed ❌" RESET));
+		   ((!strcmp(buffer_ft, buffer_std)) ? GREEN "Test Passed ✅" RESET :
+											   RED "Test Failed ❌" RESET));
 	printf(MAGENTA "%s\n%s", S2, RESET);
 }
